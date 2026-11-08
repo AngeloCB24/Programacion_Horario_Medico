@@ -20,6 +20,35 @@ public class Servicio {
         return Arrays.asList(m);
     }
 
+    public Medico buscarMedico(Long id) {
+        return rt.getForObject(
+                "http://MICROGESTION/gestion/medico/buscar/" + id,
+                Medico.class
+        );
+    }
+
+    public void grabarMedico(Medico m) {
+        rt.postForObject(
+                "http://MICROGESTION/gestion/medico/grabar",
+                m,
+                Void.class
+        );
+    }
+
+    public void eliminarMedico(Long id) {
+        rt.delete(
+                "http://MICROGESTION/gestion/medico/eliminar/" + id
+        );
+    }
+
+    public Medico actualizarMedico(Long id, Medico m) {
+        rt.put(
+                "http://MICROGESTION/gestion/medico/actualizar/" + id,
+                m
+        );
+        return buscarMedico(id);
+    }
+
     public List<FranjaHoraria> listarFranjas() {
         FranjaHoraria[] f = rt.getForObject(
                 "http://MICROGESTION/gestion/franjas",

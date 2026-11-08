@@ -1,3 +1,4 @@
+
 package ProgramacionHorario.MicroGestion;
 
 import java.util.Arrays;
@@ -19,6 +20,36 @@ public class Servicio {
         );
 
         return Arrays.asList(m);
+    }
+
+    public Medico buscarMedico(Long id) {
+        return rt.getForObject(
+                "http://MICROPROGRAMACION/medico/buscar/" + id,
+                Medico.class
+        );
+    }
+
+    public void grabarMedico(Medico m) {
+        rt.postForObject(
+                "http://MICROPROGRAMACION/medico/grabar",
+                m,
+                Void.class
+        );
+    }
+
+    public void eliminarMedico(Long id) {
+        rt.delete(
+                "http://MICROPROGRAMACION/medico/eliminar/" + id
+        );
+    }
+
+    public Medico actualizarMedico(Long id, Medico m) {
+        rt.put(
+                "http://MICROPROGRAMACION/medico/actualizar/" + id,
+                m
+        );
+
+        return buscarMedico(id);
     }
 
     public List<Medico> buscarPorEspecialidad(String especialidad) {
@@ -44,6 +75,7 @@ public class Servicio {
                 "http://MICROREGITRO/programacion/listar",
                 ProgramacionHorario[].class
         );
+
         return Arrays.asList(p);
     }
 

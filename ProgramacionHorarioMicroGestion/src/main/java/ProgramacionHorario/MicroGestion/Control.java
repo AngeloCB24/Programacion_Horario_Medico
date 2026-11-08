@@ -1,3 +1,4 @@
+
 package ProgramacionHorario.MicroGestion;
 
 import java.util.List;
@@ -14,6 +15,26 @@ public class Control {
     @GetMapping("/medicos")
     public List<Medico> listarMedicos() {
         return s.listarMedicos();
+    }
+
+    @GetMapping("/medico/buscar/{id}")
+    public Medico buscarMedico(@PathVariable Long id) {
+        return s.buscarMedico(id);
+    }
+
+    @PostMapping("/medico/grabar")
+    public void grabarMedico(@RequestBody Medico m) {
+        s.grabarMedico(m);
+    }
+
+    @DeleteMapping("/medico/eliminar/{id}")
+    public void eliminarMedico(@PathVariable Long id) {
+        s.eliminarMedico(id);
+    }
+
+    @PutMapping("/medico/actualizar/{id}")
+    public Medico actualizarMedico(@PathVariable Long id, @RequestBody Medico m) {
+        return s.actualizarMedico(id, m);
     }
 
     @GetMapping("/especialidad/{especialidad}")

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class Control {
@@ -41,6 +42,36 @@ public class Control {
     public String medicos(Model model) {
         model.addAttribute("lista", s.listarMedicos());
         return "medicos";
+    }
+
+    @GetMapping("/medicos/nuevo")
+    public String nuevoMedico(Model model) {
+        model.addAttribute("medico", new Medico());
+        return "medico-form";
+    }
+
+    @PostMapping("/medicos/grabar")
+    public String grabarMedico(Medico m) {
+        s.grabarMedico(m);
+        return "redirect:/medicos";
+    }
+
+    @GetMapping("/medicos/editar/{id}")
+    public String editarMedico(@PathVariable Long id, Model model) {
+        model.addAttribute("medico", s.buscarMedico(id));
+        return "medico-form";
+    }
+
+    @PostMapping("/medicos/actualizar/{id}")
+    public String actualizarMedico(@PathVariable Long id, Medico m) {
+        s.actualizarMedico(id, m);
+        return "redirect:/medicos";
+    }
+
+    @GetMapping("/medicos/eliminar/{id}")
+    public String eliminarMedico(@PathVariable Long id) {
+        s.eliminarMedico(id);
+        return "redirect:/medicos";
     }
 
     @GetMapping("/programacion")
