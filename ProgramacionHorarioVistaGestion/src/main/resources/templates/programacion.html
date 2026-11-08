@@ -1,0 +1,47 @@
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Programación de horarios</title>
+    </head>
+    <body>
+
+        <h2>Programar horario de médicos</h2>
+
+        <form action="/programacion/grabar" method="post">
+
+            <label>Médico:</label>
+            <select name="idMed" required>
+                <option value="">Seleccione un médico</option>
+                <option th:each="m : ${medicos}"
+                        th:value="${m.idMed}"
+                        th:text="${m.nom + ' - ' + m.especialidad}">
+                </option>
+            </select>
+
+            <br><br>
+
+            <label>Fecha:</label>
+            <input type="date" name="fec" required>
+
+            <br><br>
+
+            <label>Estado:</label>
+            <select name="estado">
+                <option value="Disponible">Disponible</option>
+                <option value="No disponible">No disponible</option>
+            </select>
+
+            <br><br>
+
+            <button type="submit">Guardar programación</button>
+
+        </form>
+
+        <br>
+        <a href="/inicio">Volver al menú</a>
+
+    </body>
+</html>
+```
