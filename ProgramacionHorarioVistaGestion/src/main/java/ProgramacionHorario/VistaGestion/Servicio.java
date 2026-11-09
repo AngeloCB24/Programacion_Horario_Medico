@@ -65,6 +65,43 @@ public class Servicio {
         );
     }
 
+    public List<Usuario> listarUsuarios() {
+        Usuario[] u = rt.getForObject(
+                "http://MICROGESTION/gestion/usuarios",
+                Usuario[].class
+        );
+        return Arrays.asList(u);
+    }
+
+    public Usuario buscarUsuario(Long id) {
+        return rt.getForObject(
+                "http://MICROGESTION/gestion/usuario/buscar/" + id,
+                Usuario.class
+        );
+    }
+
+    public void grabarUsuario(Usuario u) {
+        rt.postForObject(
+                "http://MICROGESTION/gestion/usuario/grabar",
+                u,
+                Void.class
+        );
+    }
+
+    public void eliminarUsuario(Long id) {
+        rt.delete(
+                "http://MICROGESTION/gestion/usuario/eliminar/" + id
+        );
+    }
+
+    public Usuario actualizarUsuario(Long id, Usuario u) {
+        rt.put(
+                "http://MICROGESTION/gestion/usuario/actualizar/" + id,
+                u
+        );
+        return buscarUsuario(id);
+    }
+
     public ProgramacionHorario grabarProgramacion(ProgramacionHorario p) {
         return rt.postForObject(
                 "http://MICROGESTION/gestion/programacion/grabar",

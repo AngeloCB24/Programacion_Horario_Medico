@@ -39,6 +39,42 @@ public class Control {
         return "inicio";
     }
 
+    @GetMapping("/usuarios")
+    public String usuarios(Model model) {
+        model.addAttribute("usuarios", s.listarUsuarios());
+        return "usuarios";
+    }
+
+    @GetMapping("/usuarios/nuevo")
+    public String nuevoUsuario(Model model) {
+        model.addAttribute("usuario", new Usuario());
+        return "usuario-form";
+    }
+
+    @PostMapping("/usuarios/grabar")
+    public String grabarUsuario(Usuario u) {
+        s.grabarUsuario(u);
+        return "redirect:/usuarios";
+    }
+
+    @GetMapping("/usuarios/editar/{id}")
+    public String editarUsuario(@PathVariable Long id, Model model) {
+        model.addAttribute("usuario", s.buscarUsuario(id));
+        return "usuario-form";
+    }
+
+    @PostMapping("/usuarios/actualizar/{id}")
+    public String actualizarUsuario(@PathVariable Long id, Usuario u) {
+        s.actualizarUsuario(id, u);
+        return "redirect:/usuarios";
+    }
+
+    @GetMapping("/usuarios/eliminar/{id}")
+    public String eliminarUsuario(@PathVariable Long id) {
+        s.eliminarUsuario(id);
+        return "redirect:/usuarios";
+    }
+
     @GetMapping("/medicos")
     public String medicos(Model model) {
         model.addAttribute("lista", s.listarMedicos());

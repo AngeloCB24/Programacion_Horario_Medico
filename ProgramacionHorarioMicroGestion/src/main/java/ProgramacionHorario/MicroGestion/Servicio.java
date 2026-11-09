@@ -111,6 +111,43 @@ public class Servicio {
         );
     }
 
+    public List<Usuario> listarUsuarios() {
+        Usuario[] u = rt.getForObject(
+                "http://MICROVALIDAR/validar/listar",
+                Usuario[].class
+        );
+        return Arrays.asList(u);
+    }
+
+    public Usuario buscarUsuario(Long id) {
+        return rt.getForObject(
+                "http://MICROVALIDAR/validar/buscar/" + id,
+                Usuario.class
+        );
+    }
+
+    public void grabarUsuario(Usuario u) {
+        rt.postForObject(
+                "http://MICROVALIDAR/validar/grabar",
+                u,
+                Void.class
+        );
+    }
+
+    public void eliminarUsuario(Long id) {
+        rt.delete(
+                "http://MICROVALIDAR/validar/eliminar/" + id
+        );
+    }
+
+    public Usuario actualizarUsuario(Long id, Usuario u) {
+        rt.put(
+                "http://MICROVALIDAR/validar/actualizar/" + id,
+                u
+        );
+        return buscarUsuario(id);
+    }
+
     public ProgramacionHorario grabarProgramacion(ProgramacionHorario p) {
         return rt.postForObject(
                 "http://MICROREGITRO/programacion/grabar",

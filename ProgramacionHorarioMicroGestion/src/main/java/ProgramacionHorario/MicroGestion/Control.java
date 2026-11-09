@@ -78,6 +78,33 @@ public class Control {
         return s.validar(ent);
     }
 
+    @GetMapping("/usuarios")
+    public List<Usuario> listarUsuarios() {
+        return s.listarUsuarios();
+    }
+
+    @GetMapping("/usuario/buscar/{id}")
+    public Usuario buscarUsuario(@PathVariable Long id) {
+        return s.buscarUsuario(id);
+    }
+
+    @PostMapping("/usuario/grabar")
+    public void grabarUsuario(@RequestBody Usuario u) {
+        s.grabarUsuario(u);
+    }
+
+    @DeleteMapping("/usuario/eliminar/{id}")
+    public void eliminarUsuario(@PathVariable Long id) {
+        s.eliminarUsuario(id);
+    }
+
+    @PutMapping("/usuario/actualizar/{id}")
+    public Usuario actualizarUsuario(
+            @PathVariable Long id,
+            @RequestBody Usuario u) {
+        return s.actualizarUsuario(id, u);
+    }
+
     @PostMapping("/programacion/grabar")
     public ProgramacionHorario grabarProgramacion(@RequestBody ProgramacionHorario p) {
         return s.grabarProgramacion(p);
