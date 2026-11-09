@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -77,8 +78,16 @@ public class Control {
     @GetMapping("/programacion")
     public String programacion(Model model) {
         model.addAttribute("medicos", s.listarMedicos());
-        model.addAttribute("franjas", s.listarFranjas());
         model.addAttribute("programaciones", s.listarProgramaciones());
+        model.addAttribute("programacion", new ProgramacionHorario());
+        return "programacion";
+    }
+
+    @GetMapping("/programacion/editar/{id}")
+    public String editarProgramacion(@PathVariable Long id, Model model) {
+        model.addAttribute("medicos", s.listarMedicos());
+        model.addAttribute("programaciones", s.listarProgramaciones());
+        model.addAttribute("programacion", s.buscarProgramacion(id));
         return "programacion";
     }
 
@@ -86,5 +95,58 @@ public class Control {
     public String grabarProgramacion(ProgramacionHorario p) {
         s.grabarProgramacion(p);
         return "redirect:/programacion";
+    }
+
+    @PostMapping("/programacion/actualizar/{id}")
+    public String actualizarProgramacion(@PathVariable Long id, ProgramacionHorario p) {
+        s.actualizarProgramacion(id, p);
+        return "redirect:/programacion";
+    }
+
+    @GetMapping("/programacion/eliminar/{id}")
+    public String eliminarProgramacion(@PathVariable Long id) {
+        s.eliminarProgramacion(id);
+        return "redirect:/programacion";
+    }
+
+    @GetMapping("/franjas")
+    public String listarFranjas(Model model) {
+        model.addAttribute("franjas", s.listarFranjas());
+        model.addAttribute("programaciones", s.listarProgramaciones());
+        return "franjas";
+    }
+
+    @PostMapping("/franja/grabar")
+    public String grabarFranja(@ModelAttribute FranjaHoraria f) {
+        s.grabarFranja(f);
+        return "redirect:/franjas";
+    }
+
+    @GetMapping("/franja/editar/{id}")
+    public String editarFranja(@PathVariable Long id, Model model) {
+        model.addAttribute("franja", s.buscarFranja(id));
+        model.addAttribute("programaciones", s.listarProgramaciones());
+        return "franja-form";
+    }
+
+    @PostMapping("/franja/actualizar/{id}")
+    public String actualizarFranja(
+            @PathVariable Long id,
+            @ModelAttribute FranjaHoraria f) {
+        s.actualizarFranja(id, f);
+        return "redirect:/franjas";
+    }
+
+    @GetMapping("/franja/eliminar/{id}")
+    public String eliminarFranja(@PathVariable Long id) {
+        s.eliminarFranja(id);
+        return "redirect:/franjas";
+    }
+
+    @GetMapping("/franja/nueva")
+    public String nuevaFranja(Model model) {
+        model.addAttribute("franja", new FranjaHoraria());
+        model.addAttribute("programaciones", s.listarProgramaciones());
+        return "franja-form";
     }
 }

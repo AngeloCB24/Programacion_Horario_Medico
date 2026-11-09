@@ -1,4 +1,3 @@
-
 package ProgramacionHorarioMicroRegistro.MicroRegitro;
 
 import java.util.List;
@@ -7,30 +6,31 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class Servicio {
-    
+
     @Autowired
     private Dao d;
-    
-    public void grabar(ProgramacionHorario p){
+
+    public void grabar(ProgramacionHorario p) {
         d.save(p);
     }
-    
-    public ProgramacionHorario buscar(Long id){
+
+    public ProgramacionHorario buscar(Long id) {
         return d.findById(id).orElse(null);
     }
-    
-    public List<ProgramacionHorario> listar(){
+
+    public List<ProgramacionHorario> listar() {
         return d.findAll();
     }
-    
-    public void eliminar(Long id){
+
+    public void eliminar(Long id) {
         d.deleteById(id);
     }
-    
-    public ProgramacionHorario actualizar(Long id, ProgramacionHorario p){
-        return d.findById(id).map(x->{
+
+    public ProgramacionHorario actualizar(Long id, ProgramacionHorario p) {
+        return d.findById(id).map(x -> {
             x.setFec(p.getFec());
             x.setEstado(p.getEstado());
+            x.setIdMed(p.getIdMed());
             return d.save(x);
         }).orElse(null);
     }

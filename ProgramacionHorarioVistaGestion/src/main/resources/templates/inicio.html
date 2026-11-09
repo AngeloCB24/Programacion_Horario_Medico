@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Menú principal</title>
-</head>
-<body>
-    <h1>Sistema de Programación de Horarios Médicos</h1>
+    <head>
+        <title>Menú principal</title>
+    </head>
+    <body>
+        <h1>Sistema de Programación de Horarios Médicos</h1>
 
-    <h3>Bienvenido al sistema</h3>
+        <h3>Bienvenido al sistema</h3>
 
-    <h2>Opciones</h2>
+        <h2>Opciones</h2>
 
-    <a th:href="@{/medicos}">Consultar médicos</a>
-    <br><br>
+        <a th:href="@{/medicos}">Consultar médicos</a>
+        <br><br>
 
-    <a th:href="@{/programacion}">Programar horarios</a>
-    <br><br>
+        <a th:href="@{/programacion}">Programar horarios</a>
+        <br><br>
 
-    <a th:href="@{/}">Cerrar sesión</a>
+        <a th:href="@{/franjas}">
+            <button type="button">Gestionar Franjas Horarias</button>
+        </a>
 
-</body>
+
+        <a th:href="@{/}">Cerrar sesión</a>
+
+    </body>
 </html>

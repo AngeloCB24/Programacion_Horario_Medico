@@ -31,10 +31,10 @@ public class Servicio {
 
     public FranjaHoraria actualizar(Long id, FranjaHoraria f) {
         return d.findById(id).map(x -> {
+            x.setIdProgramacion(f.getIdProgramacion());
             x.setHoraInicio(f.getHoraInicio());
             x.setHoraFin(f.getHoraFin());
             return d.save(x);
         }).orElse(null);
     }
-
 }

@@ -49,14 +49,6 @@ public class Servicio {
         return buscarMedico(id);
     }
 
-    public List<FranjaHoraria> listarFranjas() {
-        FranjaHoraria[] f = rt.getForObject(
-                "http://MICROGESTION/gestion/franjas",
-                FranjaHoraria[].class
-        );
-        return Arrays.asList(f);
-    }
-
     public List<ProgramacionHorario> listarProgramaciones() {
         ProgramacionHorario[] p = rt.getForObject(
                 "http://MICROGESTION/gestion/programaciones",
@@ -79,5 +71,64 @@ public class Servicio {
                 p,
                 ProgramacionHorario.class
         );
+    }
+
+    public ProgramacionHorario buscarProgramacion(Long id) {
+        return rt.getForObject(
+                "http://MICROGESTION/gestion/programacion/buscar/" + id,
+                ProgramacionHorario.class
+        );
+    }
+
+    public void eliminarProgramacion(Long id) {
+        rt.delete(
+                "http://MICROGESTION/gestion/programacion/eliminar/" + id
+        );
+    }
+
+    public ProgramacionHorario actualizarProgramacion(Long id, ProgramacionHorario p) {
+        rt.put(
+                "http://MICROGESTION/gestion/programacion/actualizar/" + id,
+                p
+        );
+        return buscarProgramacion(id);
+    }
+
+    public List<FranjaHoraria> listarFranjas() {
+        return Arrays.asList(
+                rt.getForObject(
+                        "http://MICROGESTION/gestion/franjas",
+                        FranjaHoraria[].class
+                )
+        );
+    }
+
+    public FranjaHoraria grabarFranja(FranjaHoraria f) {
+        return rt.postForObject(
+                "http://MICROGESTION/gestion/franja/grabar",
+                f,
+                FranjaHoraria.class
+        );
+    }
+
+    public FranjaHoraria buscarFranja(Long id) {
+        return rt.getForObject(
+                "http://MICROGESTION/gestion/franja/buscar/" + id,
+                FranjaHoraria.class
+        );
+    }
+
+    public void eliminarFranja(Long id) {
+        rt.delete(
+                "http://MICROGESTION/gestion/franja/eliminar/" + id
+        );
+    }
+
+    public FranjaHoraria actualizarFranja(Long id, FranjaHoraria f) {
+        rt.put(
+                "http://MICROGESTION/gestion/franja/actualizar/" + id,
+                f
+        );
+        return buscarFranja(id);
     }
 }

@@ -1,4 +1,3 @@
-
 package ProgramacionHorario.MicroGestion;
 
 import java.util.Arrays;
@@ -18,7 +17,6 @@ public class Servicio {
                 "http://MICROPROGRAMACION/medico/listar",
                 Medico[].class
         );
-
         return Arrays.asList(m);
     }
 
@@ -48,7 +46,6 @@ public class Servicio {
                 "http://MICROPROGRAMACION/medico/actualizar/" + id,
                 m
         );
-
         return buscarMedico(id);
     }
 
@@ -57,7 +54,6 @@ public class Servicio {
                 "http://MICROPROGRAMACION/medico/especialidad/" + especialidad,
                 Medico[].class
         );
-
         return Arrays.asList(m);
     }
 
@@ -66,8 +62,37 @@ public class Servicio {
                 "http://MICROFRANJAHORARIA/franja/listar",
                 FranjaHoraria[].class
         );
-
         return Arrays.asList(f);
+    }
+
+    public FranjaHoraria grabarFranja(FranjaHoraria f) {
+        return rt.postForObject(
+                "http://MICROFRANJAHORARIA/franja/grabar",
+                f,
+                FranjaHoraria.class
+        );
+    }
+
+    public FranjaHoraria buscarFranja(Long id) {
+        return rt.getForObject(
+                "http://MICROFRANJAHORARIA/franja/buscar/" + id,
+                FranjaHoraria.class
+        );
+    }
+
+    public void eliminarFranja(Long id) {
+        rt.delete(
+                "http://MICROFRANJAHORARIA/franja/eliminar/" + id
+        );
+    }
+
+    public FranjaHoraria actualizarFranja(Long id, FranjaHoraria f) {
+        rt.put(
+                "http://MICROFRANJAHORARIA/franja/actualizar/" + id,
+                f
+        );
+
+        return buscarFranja(id);
     }
 
     public List<ProgramacionHorario> listarProgramaciones() {
@@ -75,7 +100,6 @@ public class Servicio {
                 "http://MICROREGITRO/programacion/listar",
                 ProgramacionHorario[].class
         );
-
         return Arrays.asList(p);
     }
 
@@ -93,5 +117,26 @@ public class Servicio {
                 p,
                 ProgramacionHorario.class
         );
+    }
+
+    public ProgramacionHorario buscarProgramacion(Long id) {
+        return rt.getForObject(
+                "http://MICROREGITRO/programacion/buscar/" + id,
+                ProgramacionHorario.class
+        );
+    }
+
+    public void eliminarProgramacion(Long id) {
+        rt.delete(
+                "http://MICROREGITRO/programacion/eliminar/" + id
+        );
+    }
+
+    public ProgramacionHorario actualizarProgramacion(Long id, ProgramacionHorario p) {
+        rt.put(
+                "http://MICROREGITRO/programacion/actualizar/" + id,
+                p
+        );
+        return buscarProgramacion(id);
     }
 }

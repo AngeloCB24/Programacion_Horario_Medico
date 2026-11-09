@@ -1,4 +1,3 @@
-
 package ProgramacionHorario.MicroGestion;
 
 import java.util.List;
@@ -47,6 +46,28 @@ public class Control {
         return s.listarFranjas();
     }
 
+    @PostMapping("/franja/grabar")
+    public FranjaHoraria grabarFranja(@RequestBody FranjaHoraria f) {
+        return s.grabarFranja(f);
+    }
+
+    @GetMapping("/franja/buscar/{id}")
+    public FranjaHoraria buscarFranja(@PathVariable Long id) {
+        return s.buscarFranja(id);
+    }
+
+    @DeleteMapping("/franja/eliminar/{id}")
+    public void eliminarFranja(@PathVariable Long id) {
+        s.eliminarFranja(id);
+    }
+
+    @PutMapping("/franja/actualizar/{id}")
+    public FranjaHoraria actualizarFranja(
+            @PathVariable Long id,
+            @RequestBody FranjaHoraria f) {
+        return s.actualizarFranja(id, f);
+    }
+
     @GetMapping("/programaciones")
     public List<ProgramacionHorario> listarProgramaciones() {
         return s.listarProgramaciones();
@@ -61,4 +82,22 @@ public class Control {
     public ProgramacionHorario grabarProgramacion(@RequestBody ProgramacionHorario p) {
         return s.grabarProgramacion(p);
     }
+
+    @GetMapping("/programacion/buscar/{id}")
+    public ProgramacionHorario buscarProgramacion(@PathVariable Long id) {
+        return s.buscarProgramacion(id);
+    }
+
+    @DeleteMapping("/programacion/eliminar/{id}")
+    public void eliminarProgramacion(@PathVariable Long id) {
+        s.eliminarProgramacion(id);
+    }
+
+    @PutMapping("/programacion/actualizar/{id}")
+    public ProgramacionHorario actualizarProgramacion(
+            @PathVariable Long id,
+            @RequestBody ProgramacionHorario p) {
+        return s.actualizarProgramacion(id, p);
+    }
+
 }
